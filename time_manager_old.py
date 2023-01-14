@@ -2,7 +2,7 @@ YEAR_DAYS = {"bissextile": [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31],
              "not_bissextile": [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]}
 
 
-class TimeManager:
+class TimeManagerOld:
     def __init__(self, day=1, month=1, year=1970):
         self.bissextile = False
         self.month = month
@@ -36,9 +36,6 @@ class TimeManager:
     def add_day(self):
         self.day += 1
         self.is_month_finished()
-
-    def is_mercato(self):
-        return
 
     def __str__(self):
         return f"{self.day}/{self.month}/{self.year}"

@@ -1,7 +1,7 @@
 from os.path import join
 
 
-def load_csv(filename):
+def load_csv(filename: str) -> list:
     with open(join("input_data", filename + ".csv"), 'r') as f:
         content = f.read()
     content = content.split("\n")
