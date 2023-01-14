@@ -1,7 +1,7 @@
 from load_csv import load_csv
 from time_manager import TimeManager
 from generate_players import generate_players
-from club import Club
+from team import Team
 from country import Country
 from championship import Championship
 
@@ -15,12 +15,12 @@ def main():
     championships = []
     for championship in championships_dict:
         championships.append(Championship(championship["id_championnat"], championship["id_pays"], nationalities_countries))
-    clubs_dict = load_csv("clubs")
-    clubs = []
-    for club in clubs_dict:
-        clubs.append(Club(club["id_club"], club["id_championnat"], club))
-    for club in clubs:
-        generate_players(club)
+    teams_dict = load_csv("teams")
+    teams = []
+    for team in teams_dict:
+        teams.append(Team(team["id_club"], team["id_championnat"], championships))
+    for team in teams:
+        generate_players(team)
     time_manager = TimeManager()
     return  # nb de joueurs par équipe : 22-25 pour EN et ES, 22-36 sinon
 

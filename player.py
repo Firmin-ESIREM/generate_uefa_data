@@ -1,7 +1,7 @@
 from random import choice
 
 
-class Joueur:
+class Player:
     def __init__(self, id_club, nationality, first_names, last_names):
         self.nationality = nationality
         self.first_name = choice(first_names)
