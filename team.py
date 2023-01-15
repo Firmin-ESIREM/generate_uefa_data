@@ -21,3 +21,9 @@ class Team:
 
     def get_players(self):
         return self.players
+
+    def get_players_per_post(post: str):
+        return self.plauers_per_post[post]
+
+    def get_amount_players(self):
+        return len(self.players)
