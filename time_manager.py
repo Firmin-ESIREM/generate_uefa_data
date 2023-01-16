@@ -1,5 +1,5 @@
-from datetime import datetime
-from datetime import timedelta
+from datetime import datetime, timedelta
+
 
 class TimeManager:
     def __init__(self, day: int = 8, month: int = 1, year: int = 1970) -> None:
@@ -17,7 +17,7 @@ class TimeManager:
         if self.match_time():
             return
         current_year = self.date.year
-        if(self.date.month == 12 or self.date.month == 1):
+        if self.date.month == 12 or self.date.month == 1:
             self.date = datetime(8,  1, current_year+1)
         else:
             self.date = datetime(31, 8, current_year)
