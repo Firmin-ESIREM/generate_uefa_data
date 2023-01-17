@@ -4,7 +4,7 @@ from generate_players import generate_players
 from team import Team
 from country import Country
 from contract_manager import ContractManager
-from champ_utils import ChampUtils
+from champutils import ChampUtils
 from championship import Championship
 
 # from mercato import mercato

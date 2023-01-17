@@ -1,3 +1,7 @@
+from datetime import datetime
+import random
+
+
 class Match:
 
     def __init__(self, championship_id, date: datetime, id_club1, id_club2, commune_match):
@@ -6,9 +10,8 @@ class Match:
         self.id_club2 = id_club2
         self.commune_match = commune_match
 
-
     def simulate(self, champ_utils):
-        winner = random.choice([id_club1, id_club2, None])
+        winner = random.choice([self.id_club1, self.id_club2, None])
         if winner is None:
             self.winner = "N"
             self.points_domicile = 1

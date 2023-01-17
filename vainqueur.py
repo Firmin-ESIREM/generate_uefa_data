@@ -1,7 +1,7 @@
 class Vainqueur:
 
     def __init__(self):
-        self.vainqueurs
+        self.vainqueurs = dict()
 
-    def add(annee, vainqueurs):
+    def add(self, annee, vainqueurs):
         self.vainqueurs[annee] = vainqueurs
