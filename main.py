@@ -16,8 +16,7 @@ def main():
     championships = []
     teams_per_championships = {}
     for championship in championships_dict:
-        championships.append(
-            Championship(championship["id_championnat"], championship["id_pays"], nationalities_countries))
+        championships.append(Championship(championship["id_championnat"], championship["id_pays"], nationalities_countries))
         teams_per_championships[championship["id_championnat"]] = list()
     teams_dict = load_csv("teams")
     teams = []
@@ -25,10 +24,10 @@ def main():
         teams.append(Team(team["id_club"], team["id_championnat"], championships))
         teams_per_championships[team["id_championnat"]].append(i)
     players_number = 0
+    time_manager = TimeManager()
     for team in teams:
         generate_players(team)
         players_number += team.get_amount_players()
-    time_manager = TimeManager()
     if time_manager.mercato_time():
         mercato(championships, players_number, teams_per_championships)
         time_manager.skip_mercato_time()
