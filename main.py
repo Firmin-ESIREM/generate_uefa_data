@@ -4,8 +4,10 @@ from generate_players import generate_players
 from mercato import mercato
 from team import Team
 from country import Country
+from contract_manager import ContractManager
 from championship import Championship
 
+contract_manager = ContractManager()
 
 def main():
     nationalities_countries_dict = load_csv("nationalites_pays")
@@ -35,6 +37,8 @@ def main():
         time_manager.add_day()
     return  # nb de joueurs par équipe : 22-25 pour EN et ES, 22-36 sinon
 
+def get_contract_manager():
+    return contract_manager
 
 if __name__ == '__main__':
     main()
