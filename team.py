@@ -3,12 +3,16 @@ from player import Player
 
 
 class Team:
-    def __init__(self, id_team: str, id_championship: str, championships: list[Championship]) -> None:
+    def __init__(self, id_team: str, id_championship: str, championships: list[Championship], id_commune) -> None:
         self.id_team: str = id_team
         self.championship: Championship = next((x for x in championships if x.id_championship == id_championship), None)
         self.players: list[Player] = []
         self.players_per_post: dict[str, list[Player]] = {"A": [], "M": [], "D": [], "G": []}
-
+        self.commune_id = id_commune
+        
+    def get_commune_id(self):
+        return self.commune_id
+    
     def add_player(self, player: Player):
         if player not in self.players:
             self.players.append(player)

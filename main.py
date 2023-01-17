@@ -4,6 +4,7 @@ from generate_players import generate_players
 from team import Team
 from country import Country
 from contract_manager import ContractManager
+from champ_utils import ChampUtils
 from championship import Championship
 
 # from mercato import mercato
@@ -33,6 +34,10 @@ def main():
     for team in teams:
         generate_players(time_manager.date, team, nationalities_countries)
         players_number += team.get_amount_players()
+
+    champ_utils = ChampUtils()
+    # TODO systeme d'année et champutils
+    
     if time_manager.mercato_time():
         # mercato(championships, players_number, teams_per_championships)
         time_manager.skip_mercato_time()
