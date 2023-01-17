@@ -22,4 +22,5 @@ def mercato(championship_list, players_number: int, teams_per_championship, date
         teams[1].remove(player2)
         teams[1].add(player1)
         teams[0].add(player2)
-        contract_manager.add_contract(player1.get_id(), teams[1].get_id(), date )
+        contract_manager.add_contract(player1.get_id(), teams[1].get_id(), date)
+        contract_manager.add_contract(player2.get_id(), teams[0].get_id(), date)
