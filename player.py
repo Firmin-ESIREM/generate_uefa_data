@@ -1,4 +1,4 @@
-from random import choice
+from random import randint, choice
 from os import listdir
 
 
@@ -15,20 +15,30 @@ for file in listdir("noms"):
         content = f.read().split("\n")
     last_names[file] = content
 
-print(first_names)
-print(last_names)
-
 
 class Player:
-    def __init__(self, id_club, nationality, birth_date, post):
+    def __init__(self, team, nationality, birth_date, post):
         self.nationality = nationality
         self.birth_date = birth_date  # 17 à 35 ans
-        self.current_club = id_club
+        self.current_club = team.id_team
         self.post = post
+        self.first_name: str
+        self.last_name: str
 
-
-        self.first_name
-        self.last_name
+        if self.nationality == team.championship.country.id_nationality:
+            if randint(1, 20) > 17:
+                nn = list(first_names.keys())
+                nn.remove(self.nationality)
+                nn = choice(nn)
+                print(nn)
+                self.first_name = choice(first_names[nn])
+                self.last_name = choice(last_names[nn])
+            else:
+                self.first_name = choice(first_names[self.nationality])
+                self.last_name = choice(last_names[self.nationality])
 
     def get_post(self):
         return self.post
+
+    def __str__(self):
+        return "" # self.first_name + ' ' + self.last_name.upper()

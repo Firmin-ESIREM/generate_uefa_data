@@ -1,4 +1,4 @@
-from contracts import Contract
+from contract import Contract
 
 class ContractManager:
 
