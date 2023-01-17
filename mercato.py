@@ -15,7 +15,7 @@ def mercato(championship_list, players_number: int, teams_per_championship):
                 teams_per_championship[id_champ])])  # I add a random team in this championship
         player1 = choice(teams[0].get_players())  # I choose a random player in this team
         player2 = choice(
-            teams[1].get_players_per_post(player1.get_post()))  # I choose a player with the SAME post in the other team
+              teams[1].get_players_per_post(player1.get_post()))  # I choose a player with the SAME post in the other team
         teams[0].remove(player1)  # I switch players into teams
         teams[1].remove(player2)
         teams[1].add(player1)
