@@ -10,7 +10,7 @@ def mercato(championship_list, players_number: int, teams_per_championship):
         championships = choices(championship_list, k=2)  # I get two randoms championships
         teams = list()  # I create a list for add two randoms teams
         for championship in championships:
-            id_champ = championship.get_id  # I get the id of the championship
+            id_champ = championship.get_id()  # I get the id of the championship
             teams.append(teams_per_championship[id_champ][choice(
                 teams_per_championship[id_champ])])  # I add a random team in this championship
         player1 = choice(teams[0].get_players())  # I choose a random player in this team
