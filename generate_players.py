@@ -36,5 +36,6 @@ def generate_players(date: datetime, team: Team, countries: list[Country]) -> li
         birth_date = datetime.fromtimestamp(randint(low, up))
         nationality = team.championship.country.id_nationality if bool(randint(0, 1)) else choice(countries).id_nationality
         player = Player(team, nationality, birth_date, post)
+        print(player, post, team.id_team, birth_date)
         players.append(Player(team, nationality, birth_date, post))
     return []

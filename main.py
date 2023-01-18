@@ -27,7 +27,7 @@ def main():
     teams_dict = load_csv("teams")
     teams = []
     for i, team in enumerate(teams_dict):
-        teams.append(Team(team["id_club"], team["id_championnat"], championships))
+        teams.append(Team(team["id_club"], team["id_championnat"], championships, 99))
         teams_per_championships[team["id_championnat"]].append(i)
     players_number = 0
     time_manager = TimeManager()
