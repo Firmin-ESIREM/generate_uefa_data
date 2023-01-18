@@ -31,3 +31,9 @@ class Team:
 
     def get_amount_players(self):
         return len(self.players)
+
+    def get_id_club(self):
+        return self.id_team
+
+    def get_id_championship(self):
+        return self.championship.get_id()

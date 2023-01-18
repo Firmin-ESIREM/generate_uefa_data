@@ -1,12 +1,10 @@
 from random import choice, choices
-from main import get_contract_manager
+from datetime import datetime
 
-
-def mercato(championship_list, players_number: int, teams_per_championship, date: datetime):
+def mercato(championship_list, players_number: int, teams_per_championship, date: datetime, contract_manager):
     """
     This function simulates a transfer market.
     """
-    contract_manager = get_contract_manager()
     numbers_players_to_draft = round(players_number * 0.035)  # Get the approximate number of players to need drafts
     for x in range(numbers_players_to_draft):
         championships = choices(championship_list, k=2)  # I get two randoms championships

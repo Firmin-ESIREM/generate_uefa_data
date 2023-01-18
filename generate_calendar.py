@@ -17,10 +17,10 @@ def generate_all_calendars(teams_per_championship):
     
     matches = list()
     
-    for journee in range(380/2):
+    for journee in range(380//2):
         matches.append(list())
         for championnat in range(5):
-            matches_champ = matches_per_championship[championnat][journee]
+            matches_champ = matches_per_championship[championnat][1][journee]
             matches[journee].append(matches_champ[0])
             matches[journee].append(matches_champ[1])
     for x in range(len(matches)):

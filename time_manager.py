@@ -14,19 +14,22 @@ class TimeManager:
         return not (self.mercato_time())
 
     def is_season_finished(self) -> bool:
-        return self.date == datetime(self.year, 9, 1)
+        return self.date == datetime(self.date.year, 9, 1)
 
     def skip_mercato_time(self):
         if self.match_time():
             return
         current_year = self.date.year
         if self.date.month == 12 or self.date.month == 1:
-            self.date = datetime(8,  1, current_year+1)
+            self.date = datetime(current_year+1,  1, 8)
         else:
-            self.date = datetime(31, 8, current_year)
+            self.date = datetime(current_year, 9, 1)
 
     def add_day(self):
         self.date += timedelta(days=1)
+
+    def get_date(self):
+        return self.date
 
     def __str__(self) -> str:  # French way of displaying date
         return self.date.strftime("%d/%m/%Y")
