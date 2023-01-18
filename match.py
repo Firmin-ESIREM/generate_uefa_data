@@ -52,3 +52,6 @@ class Match:
         self.tirs_cadres_exterieur = random.randint(1, 15)
         self.tirs_non_cadres_domicile = random.randint(2, 30)
         self.tirs_non_cadres_exterieur = random.randint(2, 30)
+
+    def __str__(self):
+        return f"winner : {self.winner} but_ext : {self.score_exterieur} but_int : {self.score_domicile} points_int : {self.points_domicile} points_ext : {self.points_exterieur} tirs_cadres_ext : {self.tirs_cadres_exterieur} tirs_cadres_int : {self.tirs_cadres_domicile} tirs_non_cadres_ext : {self.tirs_non_cadres_exterieur} tir_non_cadres_inte : {self.tirs_non_cadres_domicile}"

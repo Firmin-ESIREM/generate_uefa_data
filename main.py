@@ -53,6 +53,7 @@ def main():
             for match in matches[i]:
                 match_object = Match(match[2], time_manager.get_date(), match[0], match[1])
                 match_object.simulate(champ_utils)
+                print(match_object)
             time_manager.add_day()
             i += 1
     return  # nb de joueurs par équipe : 22-25 pour EN et ES, 22-36 sinon
