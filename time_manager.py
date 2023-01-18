@@ -13,6 +13,9 @@ class TimeManager:
     def match_time(self) -> bool:
         return not (self.mercato_time())
 
+    def is_season_finished(self) -> bool:
+        return self.date == datetime(self.year, 9, 1)
+
     def skip_mercato_time(self):
         if self.match_time():
             return

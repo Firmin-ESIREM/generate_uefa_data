@@ -4,10 +4,12 @@ from generate_players import generate_players
 from team import Team
 from country import Country
 from contract_manager import ContractManager
+from datetime import datetime
 from champutils import ChampUtils
+from generate_calendar import generate_all_calendars
 from championship import Championship
-
-# from mercato import mercato
+from match import Match
+from mercato import mercato
 
 contract_manager = ContractManager()
 
@@ -37,12 +39,22 @@ def main():
 
     champ_utils = ChampUtils()
     # TODO systeme d'année et champutils
-    
-    if time_manager.mercato_time():
-        # mercato(championships, players_number, teams_per_championships)
-        time_manager.skip_mercato_time()
-    else:
-        time_manager.add_day()
+    matches = generate_all_calendars(teams_per_championships)
+    i = 0
+    while time_manager.get_date() < datetime(2080, 9, 1):
+        if time_manager.mercato_time():
+            mercato(championships, players_number, teams_per_championships)
+            time_manager.skip_mercato_time()
+        elif time_manager.is_season_finished:
+            champ_utils.close()
+            matches_per_championship = generate_all_calendars(teams_per_championships)
+            time_manager.add_day()
+        else:
+            for match in matches[i]:
+                match_object = Match(match[2], time_manager.get_date(), match[0], match[1])
+                match_object.simulate(champ_utils)
+            time_manager.add_day()
+            i += 1
     return  # nb de joueurs par équipe : 22-25 pour EN et ES, 22-36 sinon
 
 
