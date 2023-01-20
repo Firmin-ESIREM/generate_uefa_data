@@ -10,6 +10,9 @@ class Team:
         self.players_per_post: dict[str, list[Player]] = {"A": [], "M": [], "D": [], "G": []}
         self.commune_id = id_commune
         
+    def __eq__(self, other):
+        return other.get_id_club() == self.id_team
+    
     def get_commune_id(self):
         return self.commune_id
     
