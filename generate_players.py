@@ -4,6 +4,7 @@ from datetime import datetime
 from dateutil.relativedelta import relativedelta
 from country import Country
 from player import Player
+from random_date import random_date
 
 
 def generate_players(date: datetime, team: Team, countries: list[Country]) -> list[Player]:
@@ -31,10 +32,9 @@ def generate_players(date: datetime, team: Team, countries: list[Country]) -> li
         number_of_players_per_post[to_remove] -= 1
     players: list[Player] = []
     for post, player in number_of_players_per_post.items():
-        low = round(datetime.timestamp(date - relativedelta(years=35)))
-        up = round(datetime.timestamp(date - relativedelta(years=17)))
-        birth_date = datetime.fromtimestamp(randint(low, up))
+        low = date - relativedelta(years=35)
+        up = date - relativedelta(years=17)
+        birth_date = random_date(low, up)
         nationality = team.championship.country.id_nationality if bool(randint(0, 1)) else choice(countries).id_nationality
-        player = Player(team, nationality, birth_date, post)
         players.append(Player(team, nationality, birth_date, post))
     return []

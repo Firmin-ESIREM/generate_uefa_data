@@ -42,4 +42,4 @@ class Player:
         return self.post
 
     def __str__(self):
-        return self.first_name + ' ' + self.last_name.upper()
+        return self.first_name + ' ' + self.last_name.upper() + ' ' + self.birth_date
