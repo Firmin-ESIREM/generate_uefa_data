@@ -39,7 +39,6 @@ def main():
     for team in teams:
         teams_per_championship[int(team.get_id_club())] = int(team.get_id_championship())
         teams_per_id[int(team.get_id_club())] = team
-        print(team.get_id_club())
         generate_players(time_manager.date, team, nationalities_countries)
         players_number += team.get_amount_players()
 
