@@ -8,7 +8,7 @@
 # CMake
 cmake-build-*/
 
-matches.txt
+datas-test
 
 # Mongo Explorer plugin
 .idea/**/mongoSettings.xml

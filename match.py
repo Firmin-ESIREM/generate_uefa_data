@@ -15,7 +15,6 @@ class Match:
 
     def simulate(self, champ_utils):
         winner = random.choice([self.club1, self.club2, None])
-        print(f"match l16 : {winner}")
         if winner is None:
             self.winner = "N"
             self.w = self.club1

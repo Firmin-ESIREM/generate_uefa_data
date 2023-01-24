@@ -28,3 +28,13 @@ class ChampUtils:
 
     def reset(self):
         self.points = dict()
+
+    def __str__(self):
+        string = "{"
+        for championnat in self.points:
+            string += f"{championnat}" + " : {"
+            for club in self.points[championnat]:
+                string += f"{club}" + ": " + f"{self.points[championnat][club]}" + ", "
+            string += "}, "
+        string += "}"
+        return string

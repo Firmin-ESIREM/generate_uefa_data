@@ -15,7 +15,8 @@ contract_manager = ContractManager()
 
 
 def main():
-    a = open("matches.txt", "w")
+    a = open("datas-test/matches.txt", "w")
+    b = open("datas-test/champutils.txt", "w")
     nationalities_countries_dict = load_csv("nationalites_pays")
     nationalities_countries = []
     for nc in nationalities_countries_dict:
@@ -52,19 +53,24 @@ def main():
             mercato(championships, players_number, teams_per_championships, time_manager.get_date(), contract_manager)
             time_manager.skip_mercato_time()
         elif time_manager.is_season_finished():
+
             champ_utils.close()
             matches = generate_all_calendars(teams_per_championships)
             time_manager.add_day()
         else:
             for match in matches[i]:
                 j += 1
+                print(j)
                 team1 = teams_per_id[match[0]]
                 commune_match = team1.get_commune_id()
                 match_object = Match(teams_per_championship[match[0]], time_manager.get_date(), teams_per_id[match[0]], teams_per_id[match[1]], commune_match)
                 match_object.simulate(champ_utils)
                 a.write(f"{match_object} nb :{j}\n")
             time_manager.add_day()
-            i += 1
+            if i != 189:
+                i += 1
+            else:
+                i = 0
     return  # nb de joueurs par équipe : 22-25 pour EN et ES, 22-36 sinon
 
 
