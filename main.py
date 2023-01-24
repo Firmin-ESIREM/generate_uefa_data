@@ -10,13 +10,16 @@ from generate_calendar import generate_all_calendars
 from championship import Championship
 from match import Match
 from mercato import mercato
+from os import path, makedirs
 
 contract_manager = ContractManager()
 
 
 def main():
-    a = open("datas-test/matches.txt", "w")
-    b = open("datas-test/champutils.txt", "w")
+    if not path.exists("data-test"):
+        makedirs("data-test")
+    a = open("data-test/matches.txt", "w")
+    b = open("data-test/champutils.txt", "w")
     nationalities_countries_dict = load_csv("nationalites_pays")
     nationalities_countries = []
     for nc in nationalities_countries_dict:
