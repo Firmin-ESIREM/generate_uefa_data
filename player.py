@@ -6,14 +6,15 @@ first_names: dict[str, list[str]] = {}
 last_names: dict[str, list[str]] = {}
 
 for file in listdir("prenoms"):
-    with open("prenoms/" + file, 'r') as f:
+    print(file)
+    with open("prenoms/" + file, 'r', encoding="utf-8") as f:
         content = f.read().split("\n")
     first_names[file] = content
 
 # print(first_names)
 
 for file in listdir("noms"):
-    with open("noms/" + file, 'r') as f:
+    with open("noms/" + file, 'r', encoding="utf-8") as f:
         content = f.read().split("\n")
     last_names[file] = content
 
