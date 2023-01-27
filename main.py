@@ -43,7 +43,8 @@ def main():
     for team in teams:
         teams_per_championship[int(team.get_id_club())] = int(team.get_id_championship())
         teams_per_id[int(team.get_id_club())] = team
-        generate_players(time_manager.date, team, nationalities_countries)
+        generated_players = generate_players(time_manager.date, team, nationalities_countries)
+        team.add_players(generated_players)
         players_number += team.get_amount_players()
 
     champ_utils = ChampUtils()
@@ -72,6 +73,8 @@ def main():
                 i += 1
             else:
                 i = 0
+    a.close()
+    b.close()
     return  # nb de joueurs par équipe : 22-25 pour EN et ES, 22-36 sinon
 
 

@@ -15,7 +15,11 @@ class Team:
     
     def get_commune_id(self):
         return self.commune_id
-    
+
+    def add_players(self, players: list[Player]):
+        for player in players:
+            self.add_player(player)
+
     def add_player(self, player: Player):
         if player not in self.players:
             self.players.append(player)

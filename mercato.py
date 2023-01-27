@@ -3,8 +3,12 @@ from datetime import datetime
 from dateutil import relativedelta
 
 
+<<<<<<< HEAD
 def mercato(championship_list, players_number: int, teams_per_championship, date: datetime, contract_manager,
             teams_per_id):
+=======
+def mercato(championship_list, players_number: int, teams_per_championship, date: datetime, contract_manager):
+>>>>>>> refs/remotes/origin/main
     """
     This function simulates a transfer market.
     """
