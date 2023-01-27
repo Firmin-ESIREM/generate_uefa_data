@@ -12,13 +12,13 @@ def choices_bibi(liste, k):
         chosen_list.add(chosen)
     tmp = list(chosen_list)
     return tmp
-def mercato(championship_list, players_number: int, teams_per_championship, date: datetime, contract_manager,
+def mercato(players_file, championship_list, players_number: int, teams_per_championship, date: datetime, contract_manager,
             teams_per_id, countries):
     """
     This function simulates a transfer market.
     """
     if(date.year != 1970):
-        retirement(championship_list, teams_per_championship, date, contract_manager, teams_per_id, countries)
+        retirement(players_file, championship_list, teams_per_championship, date, contract_manager, teams_per_id, countries)
     numbers_players_to_draft = round(players_number * 0.035)  # Get the approximate number of players to need drafts
     for x in range(numbers_players_to_draft):
         championships = choices(championship_list, k=2)  # I get two randoms championships
@@ -38,7 +38,7 @@ def mercato(championship_list, players_number: int, teams_per_championship, date
 
 
 
-def retirement(championships, teams_per_championship, date, contract_manager, teams_per_id, countries):
+def retirement(players_file, championships, teams_per_championship, date, contract_manager, teams_per_id, countries):
     players = list()
     for championship in championships:
         teams = teams_per_championship[championship.get_id()]
@@ -58,20 +58,20 @@ def retirement(championships, teams_per_championship, date, contract_manager, te
         elif age.years == 36:
             team.remove_player(player)
             contract_manager.remove_contract_player(player, date)
-            player = generate_player(date, countries, team, player.get_post(), 17, 21, 19, 0.85)
+            player = generate_player(players_file, date, countries, team, player.get_post(), 17, 21, 19, 0.85)
             team.add_player(player)
             contract_manager.add_contract(player.get_id(), team.get_id_club(), date)
 
     for player, team in choices_bibi(list(first_part), k=round(len(first_part)*0.15)):
         team.remove_player(player)
         contract_manager.remove_contract_player(player, date)
-        new_player = generate_player(date, countries, team, player.get_post(), 17, 21, 19, 0.85)
+        new_player = generate_player(players_file, date, countries, team, player.get_post(), 17, 21, 19, 0.85)
         team.add_player(new_player)
         contract_manager.add_contract(new_player.get_id(), team.get_id_club(), date)
 
     for player, team in choices_bibi(list(second_part), k=round(len(second_part)*0.85)):
         team.remove_player(player)
         contract_manager.remove_contract_player(player, date)
-        new_player = generate_player(date, countries, team, player.get_post(), 17, 21, 19, 0.85)
+        new_player = generate_player(players_file, date, countries, team, player.get_post(), 17, 21, 19, 0.85)
         team.add_player(new_player)
         contract_manager.add_contract(new_player.get_id(), team.get_id_club(), date)

@@ -18,8 +18,10 @@ contract_manager = ContractManager()
 def main():
     if not path.exists("data-test"):
         makedirs("data-test")
-    a = open("data-test/matches.csv", "w")
-    a.write("id_championnat;date_debut;club_dom;club_ext;score_dom;score_ext;gagnant;tnc_dom;tnc_ext;tc_dom;tc_ext;points_dom;points_ext;id_commune\n")
+    matches_csv = open("data-test/matches.csv", "w", encoding="utf-8")
+    matches_csv.write("id_championnat;date_debut;club_dom;club_ext;score_dom;score_ext;gagnant;tnc_dom;tnc_ext;tc_dom;tc_ext;points_dom;points_ext;id_commune\n")
+    players_csv = open("data-test/players.csv", "w", encoding="utf-8")
+    players_csv.write("id_joueur;nom;prenom;date_naissance;id_nationalite;poste\n")
     b = open("data-test/champutils.txt", "w")
 
     contracts_file = open("data-test/contracts.csv", "w", encoding="utf-8")
@@ -47,7 +49,7 @@ def main():
     for team in teams:
         teams_per_championship[int(team.get_id_club())] = int(team.get_id_championship())
         teams_per_id[int(team.get_id_club())] = team
-        generated_players = generate_initial_players(time_manager.date, team, nationalities_countries)
+        generated_players = generate_initial_players(players_csv, time_manager.date, team, nationalities_countries)
         for player in generated_players:
             contract_manager.add_contract(player.get_id(), team.get_id_club(), datetime(1970, 1, 1))
         team.add_players(generated_players)
@@ -60,7 +62,7 @@ def main():
     j = 0
     while time_manager.get_date() < datetime(2080, 9, 1):
         if time_manager.mercato_time():
-            mercato(championships, players_number, teams_per_championships, time_manager.get_date(), contract_manager, teams_per_id, nationalities_countries)
+            mercato(players_csv, championships, players_number, teams_per_championships, time_manager.get_date(), contract_manager, teams_per_id, nationalities_countries)
             time_manager.skip_mercato_time()
         elif time_manager.is_season_finished():
             b.write(f"{time_manager.get_date().year} = {str(champ_utils)}\n")
@@ -76,13 +78,14 @@ def main():
                 commune_match = team1.get_commune_id()
                 match_object = Match(teams_per_championship[match[0]], time_manager.get_date(), teams_per_id[match[0]], teams_per_id[match[1]], commune_match)
                 match_object.simulate(champ_utils)
-                a.write(f"{match_object.to_csv()}\n")
+                matches_csv.write(f"{match_object.to_csv()}\n")
             time_manager.add_day()
             if i != 189:
                 i += 1
             else:
                 i = 0
-    a.close()
+    matches_csv.close()
+    players_csv.close()
     b.close()
     contract_manager.extract_data(contracts_file)
     return  # nb de joueurs par équipe : 22-25 pour EN et ES, 22-36 sinon
