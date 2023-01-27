@@ -18,7 +18,7 @@ contract_manager = ContractManager()
 def main():
     if not path.exists("data-test"):
         makedirs("data-test")
-    a = open("data-test/matches.txt", "w")
+    a = open("data-test/matches.csv", "w")
     a.write("id_championnat;date_debut;club_dom;club_ext;score_dom;score_ext;gagnant;tnc_dom;tnc_ext;tc_dom;tc_ext;points_dom;points_ext;id_commune\n")
     b = open("data-test/champutils.txt", "w")
     nationalities_countries_dict = load_csv("nationalites_pays")
