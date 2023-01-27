@@ -22,8 +22,6 @@ def main():
     matches_csv.write("id_championnat;date_debut;club_dom;club_ext;score_dom;score_ext;gagnant;tnc_dom;tnc_ext;tc_dom;tc_ext;points_dom;points_ext;id_commune\n")
     players_csv = open("data-test/players.csv", "w", encoding="utf-8")
     players_csv.write("id_joueur;nom;prenom;date_naissance;id_nationalite;poste\n")
-    b = open("data-test/champutils.txt", "w")
-
     contracts_file = open("data-test/contracts.csv", "w", encoding="utf-8")
 
     nationalities_countries_dict = load_csv("nationalites_pays")
@@ -65,9 +63,7 @@ def main():
             mercato(players_csv, championships, players_number, teams_per_championships, time_manager.get_date(), contract_manager, teams_per_id, nationalities_countries)
             time_manager.skip_mercato_time()
         elif time_manager.is_season_finished():
-            b.write(f"{time_manager.get_date().year} = {str(champ_utils)}\n")
-            winners = champ_utils.close()
-            b.write(f"Winner {time_manager.get_date().year} = {winners}\n")
+            winners = champ_utils.close(time_manager.get_date())
             matches = generate_all_calendars(teams_per_championships)
             time_manager.add_day()
         else:
@@ -86,8 +82,8 @@ def main():
                 i = 0
     matches_csv.close()
     players_csv.close()
-    b.close()
     contract_manager.extract_data(contracts_file)
+    champ_utils.end()
     return  # nb de joueurs par équipe : 22-25 pour EN et ES, 22-36 sinon
 
 
