@@ -7,7 +7,10 @@ from player import Player
 from random_date import random_date
 
 
-def generate_player(date: datetime, countries: list[Country], team: Team, post: str, age_min: int, age_max: int,
+ALL_PLAYERS = []
+
+
+def generate_player(players_file, date: datetime, countries: list[Country], team: Team, post: str, age_min: int, age_max: int,
                     age_mid: int = None, weight_young: float = 1) -> Player:
     low = date - relativedelta(years=age_max)
     up = date - relativedelta(years=age_min)
@@ -18,10 +21,11 @@ def generate_player(date: datetime, countries: list[Country], team: Team, post: 
         birth_date = random_date(low, mid) if randint(1, 100) > weight_young * 100 else random_date(mid, up)
     nationality = team.championship.country.id_nationality if bool(randint(0, 1)) else choice(countries).id_nationality
     player_generated = Player(team, nationality, birth_date, post)
+    ALL_PLAYERS.append(player_generated)
     return player_generated
 
 
-def generate_initial_players(date: datetime, team: Team, countries: list[Country], post=None) -> list[Player]:
+def generate_initial_players(players_file, date: datetime, team: Team, countries: list[Country], post=None) -> list[Player]:
     if team.championship.country.id_country == '155' or team.championship.country.id_country == '55':
         max_number_of_players = 25
     else:
@@ -53,6 +57,6 @@ def generate_initial_players(date: datetime, team: Team, countries: list[Country
             nationality = team.championship.country.id_nationality if bool(randint(0, 1)) else choice(
                 countries).id_nationality
             player_generated = Player(team, nationality, birth_date, post)"""
-            player_generated = generate_player(date, countries, team, post, 17, 35)
+            player_generated = generate_player(players_file, date, countries, team, post, 17, 35)
             players.append(player_generated)
     return players
