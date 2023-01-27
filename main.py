@@ -18,8 +18,10 @@ contract_manager = ContractManager()
 def main():
     if not path.exists("data-test"):
         makedirs("data-test")
-    a = open("data-test/matches.csv", "w")
-    a.write("id_championnat;date_debut;club_dom;club_ext;score_dom;score_ext;gagnant;tnc_dom;tnc_ext;tc_dom;tc_ext;points_dom;points_ext;id_commune\n")
+    matches_csv = open("data-test/matches.csv", "w")
+    matches_csv.write("id_championnat;date_debut;club_dom;club_ext;score_dom;score_ext;gagnant;tnc_dom;tnc_ext;tc_dom;tc_ext;points_dom;points_ext;id_commune\n")
+    players_csv = open("data-test/matches.csv", "w")
+    players_csv.write("id_joueur;nom;prenom;date_naissance;id_nationalite;poste\n")
     b = open("data-test/champutils.txt", "w")
     nationalities_countries_dict = load_csv("nationalites_pays")
     nationalities_countries = []
@@ -70,13 +72,14 @@ def main():
                 commune_match = team1.get_commune_id()
                 match_object = Match(teams_per_championship[match[0]], time_manager.get_date(), teams_per_id[match[0]], teams_per_id[match[1]], commune_match)
                 match_object.simulate(champ_utils)
-                a.write(f"{match_object.to_csv()}\n")
+                matches_csv.write(f"{match_object.to_csv()}\n")
             time_manager.add_day()
             if i != 189:
                 i += 1
             else:
                 i = 0
-    a.close()
+    matches_csv.close()
+    players_csv.close()
     b.close()
 
     return  # nb de joueurs par équipe : 22-25 pour EN et ES, 22-36 sinon
