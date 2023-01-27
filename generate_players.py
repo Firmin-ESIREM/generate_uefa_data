@@ -7,7 +7,21 @@ from player import Player
 from random_date import random_date
 
 
-def generate_players(date: datetime, team: Team, countries: list[Country]) -> list[Player]:
+def generate_player(date: datetime, team: Team, post: str, age_min: int, age_max: int,
+                    age_mid: int = None, weight_young: float = 1) -> Player:
+    low = date - relativedelta(years=age_max)
+    up = date - relativedelta(years=age_min)
+    if age_mid is None:
+        birth_date = random_date(low, up)
+    else:
+        mid = date - relativedelta(years=age_mid)
+        birth_date = random_date(low, mid) if randint(1, 100) > weight_young * 100 else random_date(mid, up)
+    nationality = team.championship.country.id_nationality if bool(randint(0, 1)) else choice(countries).id_nationality
+    player_generated = Player(team, nationality, birth_date, post)
+    return player_generated
+
+
+def generate_initial_players(date: datetime, team: Team, countries: list[Country], post=None) -> list[Player]:
     if team.championship.country.id_country == '155' or team.championship.country.id_country == '55':
         max_number_of_players = 25
     else:
@@ -34,10 +48,12 @@ def generate_players(date: datetime, team: Team, countries: list[Country]) -> li
     print(number_of_players_per_post)
     for post, number_of_players in number_of_players_per_post.items():
         for _ in range(number_of_players):
-            low = date - relativedelta(years=35)
+            """low = date - relativedelta(years=35)
             up = date - relativedelta(years=17)
             birth_date = random_date(low, up)
-            nationality = team.championship.country.id_nationality if bool(randint(0, 1)) else choice(countries).id_nationality
-            player_generated = Player(team, nationality, birth_date, post)
+            nationality = team.championship.country.id_nationality if bool(randint(0, 1)) else choice(
+                countries).id_nationality
+            player_generated = Player(team, nationality, birth_date, post)"""
+            player_generated = generate_player(date, team, post, 17, 35)
             players.append(player_generated)
     return players

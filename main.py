@@ -1,6 +1,6 @@
 from load_csv import load_csv
 from time_manager import TimeManager
-from generate_players import generate_players
+from generate_players import generate_initial_players
 from team import Team
 from country import Country
 from contract_manager import ContractManager
@@ -46,7 +46,7 @@ def main():
     for team in teams:
         teams_per_championship[int(team.get_id_club())] = int(team.get_id_championship())
         teams_per_id[int(team.get_id_club())] = team
-        generated_players = generate_players(time_manager.date, team, nationalities_countries)
+        generated_players = generate_initial_players(time_manager.date, team, nationalities_countries)
         for player in generated_players:
             d.write(f"{str(player)} | {str(player.get_id())}\n")
             contract_manager.add_contract(player.get_id(), team.get_id_club(), datetime(1970, 1, 1))
