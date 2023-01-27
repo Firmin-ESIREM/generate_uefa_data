@@ -22,6 +22,7 @@ def generate_player(players_file, date: datetime, countries: list[Country], team
     nationality = team.championship.country.id_nationality if bool(randint(0, 1)) else choice(countries).id_nationality
     player_generated = Player(team, nationality, birth_date, post)
     ALL_PLAYERS.append(player_generated)
+    players_file.write(f"{player_generated.id};{player_generated.last_name};{player_generated.first_name};{birth_date.year}-{birth_date.month}-{birth_date.day};{nationality};{post}\n")
     return player_generated
 
 
