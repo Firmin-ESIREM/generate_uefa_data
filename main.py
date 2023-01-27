@@ -41,15 +41,21 @@ def main():
     time_manager = TimeManager()
     teams_per_championship = dict()
     teams_per_id = dict()
+    c = open("faitchier.txt", "w")
+    d = open("faitchier2.txt", "w")
     for team in teams:
-        print("a")
         teams_per_championship[int(team.get_id_club())] = int(team.get_id_championship())
         teams_per_id[int(team.get_id_club())] = team
         generated_players = generate_players(time_manager.date, team, nationalities_countries)
-        print(generated_players)
+        for player in generated_players:
+            d.write(f"{str(player)} | {str(player.get_id())}\n")
+            contract_manager.add_contract(player.get_id(), team.get_id_club(), datetime(1970, 1, 1))
+            c.write(f"Joueur : {str(player)} contract_id : {contract_manager.get_contract_id(player)}\n")
         team.add_players(generated_players)
         players_number += team.get_amount_players()
 
+    c.close()
+    d.close()
     champ_utils = ChampUtils()
     # TODO systeme d'année et champutils
     matches = generate_all_calendars(teams_per_championships)
@@ -78,6 +84,7 @@ def main():
                 i = 0
     a.close()
     b.close()
+
     return  # nb de joueurs par équipe : 22-25 pour EN et ES, 22-36 sinon
 
 

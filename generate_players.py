@@ -36,5 +36,6 @@ def generate_players(date: datetime, team: Team, countries: list[Country]) -> li
         up = date - relativedelta(years=17)
         birth_date = random_date(low, up)
         nationality = team.championship.country.id_nationality if bool(randint(0, 1)) else choice(countries).id_nationality
-        players.append(Player(team, nationality, birth_date, post))
+        player_generated = Player(team, nationality, birth_date, post)
+        players.append(player_generated)
     return players

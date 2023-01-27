@@ -1,14 +1,23 @@
 from random import choice, choices
 from datetime import datetime
+import json
 from dateutil import relativedelta
 
 
+def choices_bibi(liste, k):
+    chosen_list = set()
+    while len(chosen_list) < k:
+        chosen = choice(liste)
+        chosen_list.add(chosen)
+    tmp = list(chosen_list)
+    return tmp
 def mercato(championship_list, players_number: int, teams_per_championship, date: datetime, contract_manager,
             teams_per_id):
     """
     This function simulates a transfer market.
     """
-    retirement(championship_list, teams_per_championship, date, contract_manager, teams_per_id)
+    if(date.year != 1970):
+        retirement(championship_list, teams_per_championship, date, contract_manager, teams_per_id)
     numbers_players_to_draft = round(players_number * 0.035)  # Get the approximate number of players to need drafts
     for x in range(numbers_players_to_draft):
         championships = choices(championship_list, k=2)  # I get two randoms championships
@@ -29,31 +38,48 @@ def mercato(championship_list, players_number: int, teams_per_championship, date
 
 def retirement(championships, teams_per_championship, date, contract_manager, teams_per_id):
     players = list()
-    for championship in championships:
-        teams = teams_per_championship[championship.get_id()]
-        for team1 in teams:
-            team = teams_per_id[int(team1)]
-            for p in team.get_players():
-                print("b")
-                print(p)
-                players.append(tuple((p, team)))
-    first_part = list()
-    second_part = list()
+    with open("faitchier5.json", "w") as f:
+        a = dict()
+        for championship in championships:
+            a[championship.get_id()] = dict()
+            teams = teams_per_championship[championship.get_id()]
+            for team1 in teams:
+                team = teams_per_id[int(team1)]
+                a[championship.get_id()][team1] = [str(p) for p in team.get_players()]
+                for p in team.get_players():
+                    players.append(tuple((p, team)))
+        f.write(json.dumps(a))
+
+    poubelle_list = list()
+    first_part = set()
+    second_part = set()
     for player, team in players:
         age = relativedelta.relativedelta(date, player.birth_date)
-        if 28 <= age.years <= 31:
-            first_part.append(tuple((player, team)))
-        elif 32 <= age.years <= 35:
-            second_part.append(tuple((player, team)))
+        if (27 < age.years) and (age.years < 32):
+            print(f"condition a | {str(player)}")
+            first_part.add(tuple((player, team)))
+        elif (31 < age.years) and (age.years < 36):
+            print(f"condition b | {str(player)}")
+            second_part.add(tuple((player, team)))
         elif age.years == 36:
+            print(f"condition c | {str(player)}")
             team.remove_player(player)
-            contract_manager.remove_contract(player, date)
+            contract_manager.remove_contract_player(player, date)
             # TODO générer un nouveau pélo
-    for player, team in choices(first_part, round(len(first_part)*0, 15)):
+        else:
+            poubelle_list.append(tuple((player, team)))
+    with open("jeunot.txt", "w") as f:
+        for player in first_part:
+            f.write(f"{str(player[0])} | {age}\n")
+    with open("vieux.txt", "w") as f:
+        for player in first_part:
+            f.write(f"{str(player[0])} | {age}\n")
+
+    for player, team in choices_bibi(list(first_part), k=round(len(first_part)*0.15)):
         team.remove_player(player)
-        contract_manager.remove_contract(player, date)
+        contract_manager.remove_contract_player(player, date)
         # TODO générer un nouveau pélo
-    for player, team in choices(second_part, round(len(second_part)*0, 85)):
+    for player, team in choices_bibi(list(second_part), k=round(len(second_part)*0.85)):
         team.remove_player(player)
-        contract_manager.remove_contract(player, date)
+        contract_manager.remove_contract_player(player, date)
         # TODO générer un nouveau pélo

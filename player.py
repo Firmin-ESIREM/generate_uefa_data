@@ -6,7 +6,6 @@ first_names: dict[str, list[str]] = {}
 last_names: dict[str, list[str]] = {}
 
 for file in listdir("prenoms"):
-    print(file)
     with open("prenoms/" + file, 'r', encoding="utf-8") as f:
         content = f.read().split("\n")
     first_names[file] = content
@@ -21,7 +20,7 @@ for file in listdir("noms"):
 
 class Player:
     def __init__(self, team, nationality, birth_date, post):
-        self.id = uuid4()
+        self.id = str(uuid4())
         self.nationality = nationality
         self.birth_date = birth_date  # 17 à 35 ans
         self.current_club = team.id_team
@@ -44,6 +43,9 @@ class Player:
 
     def get_id(self):
         return self.id
+
+    def __hash__(self):
+        return hash(self.id)
 
     def __str__(self):
         return self.first_name + ' ' + self.last_name.upper() + ' ' + str(self.birth_date)
