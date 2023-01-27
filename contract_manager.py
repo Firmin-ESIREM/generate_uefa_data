@@ -14,10 +14,10 @@ class ContractManager:
             self.contracts[contract_id] = contract
             self.contracts_active[id_player] = contract
         else:
-            contract_active = self.contract_active[id_player]
+            contract_active = self.contracts_active[id_player]
             self.remove_contract(contract_active.get_id(), date)
             self.contracts[contract_id] = contract
-            self.contract_active[id_player] = contract
+            self.contracts_active[id_player] = contract
 
     def remove_contract(self, contract_id, date):
         player_id = self.contracts[contract_id].get_player_id()

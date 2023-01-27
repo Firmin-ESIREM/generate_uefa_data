@@ -1,6 +1,6 @@
 from random import randint, choice
 from os import listdir
-
+from uuid import uuid4
 
 first_names: dict[str, list[str]] = {}
 last_names: dict[str, list[str]] = {}
@@ -21,6 +21,7 @@ for file in listdir("noms"):
 
 class Player:
     def __init__(self, team, nationality, birth_date, post):
+        self.id = uuid4()
         self.nationality = nationality
         self.birth_date = birth_date  # 17 à 35 ans
         self.current_club = team.id_team
@@ -40,6 +41,9 @@ class Player:
 
     def get_post(self):
         return self.post
+
+    def get_id(self):
+        return self.id
 
     def __str__(self):
         return self.first_name + ' ' + self.last_name.upper() + ' ' + str(self.birth_date)
