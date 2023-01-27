@@ -10,15 +10,15 @@ class Match:
         self.club2 = club2
         self.championship_id = championship_id
         self.commune_match = commune_match
-        self.w = None
-        self.l = None
+        self.domicile = None
+        self.exterieur = None
 
     def simulate(self, champ_utils):
         winner = random.choice([self.club1, self.club2, None])
         if winner is None:
             self.winner = "N"
-            self.w = self.club1
-            self.l = self.club2
+            self.domicile =  self.club1 if self.club1.get_commune_id() == self.commune_match else self.club2
+            self.exterieur = self.club2 if self.domicile.get_id_club() != self.club2.get_id_club() else self.club1
             self.points_domicile = 1
             self.points_exterieur = 1
             champ_utils.add_point(self.championship_id, int(self.club1.get_id_club()), 1)
@@ -27,18 +27,18 @@ class Match:
             champ_utils.add_point(self.championship_id, int(winner.get_id_club()), 3)
             self.points_domicile = 3
             self.points_exterieur = 0
-            self.w = winner
-            self.l = self.club2 if winner == self.club1 else self.club1
+            self.domicile = winner
+            self.exterieur = self.club2 if winner == self.club1 else self.club1
             self.winner = "D"
         else:
             if self.club1 != winner:
-                winner = self.club1
-                self.w = self.club1 
-                self.l = self.club2
-            else:
                 winner = self.club2
-                self.w = self.club2
-                self.l = self.club1
+                self.domicile = self.club1
+                self.exterieur = self.club2
+            else:
+                winner = self.club1
+                self.domicle = self.club2
+                self.exterieur = self.club1
             champ_utils.add_point(self.championship_id, int(winner.get_id_club()), 3)
             self.points_domicile = 0
             self.points_exterieur = 3

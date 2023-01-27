@@ -34,7 +34,6 @@ def retirement(championships, teams_per_championship, date, contract_manager, te
         teams = teams_per_championship[championship.get_id()]
         for team1 in teams:
             team = teams_per_id[int(team1)]
-            print(team.get_players())
             for p in team.get_players():
                 print(p)
                 players.append(p)

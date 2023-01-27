@@ -41,9 +41,11 @@ def main():
     teams_per_championship = dict()
     teams_per_id = dict()
     for team in teams:
+        print("a")
         teams_per_championship[int(team.get_id_club())] = int(team.get_id_championship())
         teams_per_id[int(team.get_id_club())] = team
         generated_players = generate_players(time_manager.date, team, nationalities_countries)
+        print(generated_players)
         team.add_players(generated_players)
         players_number += team.get_amount_players()
 
