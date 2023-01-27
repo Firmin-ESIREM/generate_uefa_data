@@ -36,24 +36,24 @@ def retirement(championships, teams_per_championship, date, contract_manager, te
             for p in team.get_players():
                 print("b")
                 print(p)
-                players.append(tuple(p, team))
+                players.append(tuple((p, team)))
     first_part = list()
     second_part = list()
     for player, team in players:
         age = relativedelta.relativedelta(date, player.birth_date)
-        if 28 <= age <= 31:
-            first_part.append(tuple(player, team))
-        elif 32 <= age <= 35:
-            second_part.append(tuple(player, team))
-        elif age == 36:
+        if 28 <= age.years <= 31:
+            first_part.append(tuple((player, team)))
+        elif 32 <= age.years <= 35:
+            second_part.append(tuple((player, team)))
+        elif age.years == 36:
             team.remove_player(player)
             contract_manager.remove_contract(player, date)
             # TODO générer un nouveau pélo
-    for player, team in choices(first_part, round(len(first_part)*0,15)):
+    for player, team in choices(first_part, round(len(first_part)*0, 15)):
         team.remove_player(player)
         contract_manager.remove_contract(player, date)
         # TODO générer un nouveau pélo
-    for player, team in choices(second_part, round(len(second_part)*0,85)):
+    for player, team in choices(second_part, round(len(second_part)*0, 85)):
         team.remove_player(player)
         contract_manager.remove_contract(player, date)
         # TODO générer un nouveau pélo
