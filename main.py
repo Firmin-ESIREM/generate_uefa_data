@@ -57,8 +57,9 @@ def main():
             mercato(championships, players_number, teams_per_championships, time_manager.get_date(), contract_manager)
             time_manager.skip_mercato_time()
         elif time_manager.is_season_finished():
-
-            champ_utils.close()
+            b.write(f"{time_manager.get_date().year} = {str(champ_utils)}\n")
+            winners = champ_utils.close()
+            b.write(f"Winner {time_manager.get_date().year} = {winners}\n")
             matches = generate_all_calendars(teams_per_championships)
             time_manager.add_day()
         else:
