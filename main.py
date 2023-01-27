@@ -41,28 +41,22 @@ def main():
     time_manager = TimeManager()
     teams_per_championship = dict()
     teams_per_id = dict()
-    c = open("faitchier.txt", "w")
-    d = open("faitchier2.txt", "w")
     for team in teams:
         teams_per_championship[int(team.get_id_club())] = int(team.get_id_championship())
         teams_per_id[int(team.get_id_club())] = team
         generated_players = generate_initial_players(time_manager.date, team, nationalities_countries)
         for player in generated_players:
-            d.write(f"{str(player)} | {str(player.get_id())}\n")
             contract_manager.add_contract(player.get_id(), team.get_id_club(), datetime(1970, 1, 1))
-            c.write(f"Joueur : {str(player)} contract_id : {contract_manager.get_contract_id(player)}\n")
         team.add_players(generated_players)
         players_number += team.get_amount_players()
 
-    c.close()
-    d.close()
     champ_utils = ChampUtils()
     # TODO systeme d'année et champutils
     matches = generate_all_calendars(teams_per_championships)
     i = 0
     while time_manager.get_date() < datetime(2080, 9, 1):
         if time_manager.mercato_time():
-            mercato(championships, players_number, teams_per_championships, time_manager.get_date(), contract_manager, teams_per_id)
+            mercato(championships, players_number, teams_per_championships, time_manager.get_date(), contract_manager, teams_per_id, nationalities_countries)
             time_manager.skip_mercato_time()
         elif time_manager.is_season_finished():
             b.write(f"{time_manager.get_date().year} = {str(champ_utils)}\n")

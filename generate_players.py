@@ -7,7 +7,7 @@ from player import Player
 from random_date import random_date
 
 
-def generate_player(date: datetime, team: Team, post: str, age_min: int, age_max: int,
+def generate_player(date: datetime, countries: list[Country], team: Team, post: str, age_min: int, age_max: int,
                     age_mid: int = None, weight_young: float = 1) -> Player:
     low = date - relativedelta(years=age_max)
     up = date - relativedelta(years=age_min)
@@ -45,7 +45,6 @@ def generate_initial_players(date: datetime, team: Team, countries: list[Country
         to_remove = choice(i)
         number_of_players_per_post[to_remove] -= 1
     players: list[Player] = []
-    print(number_of_players_per_post)
     for post, number_of_players in number_of_players_per_post.items():
         for _ in range(number_of_players):
             """low = date - relativedelta(years=35)
@@ -54,6 +53,6 @@ def generate_initial_players(date: datetime, team: Team, countries: list[Country
             nationality = team.championship.country.id_nationality if bool(randint(0, 1)) else choice(
                 countries).id_nationality
             player_generated = Player(team, nationality, birth_date, post)"""
-            player_generated = generate_player(date, team, post, 17, 35)
+            player_generated = generate_player(date, countries, team, post, 17, 35)
             players.append(player_generated)
     return players
