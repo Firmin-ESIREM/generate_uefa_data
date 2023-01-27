@@ -19,6 +19,7 @@ def main():
     if not path.exists("data-test"):
         makedirs("data-test")
     a = open("data-test/matches.txt", "w")
+    a.write("id_championnat;date_debut;club_dom;club_ext;score_dom;score_ext;gagnant;tnc_dom;tnc_ext;tc_dom;tc_ext;points_dom;points_ext;id_commune\n")
     b = open("data-test/champutils.txt", "w")
     nationalities_countries_dict = load_csv("nationalites_pays")
     nationalities_countries = []
@@ -69,7 +70,7 @@ def main():
                 commune_match = team1.get_commune_id()
                 match_object = Match(teams_per_championship[match[0]], time_manager.get_date(), teams_per_id[match[0]], teams_per_id[match[1]], commune_match)
                 match_object.simulate(champ_utils)
-                a.write(f"{match_object}\n")
+                a.write(f"{match_object.to_csv()}\n")
             time_manager.add_day()
             if i != 189:
                 i += 1
