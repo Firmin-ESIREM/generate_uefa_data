@@ -21,6 +21,9 @@ def main():
     a = open("data-test/matches.csv", "w")
     a.write("id_championnat;date_debut;club_dom;club_ext;score_dom;score_ext;gagnant;tnc_dom;tnc_ext;tc_dom;tc_ext;points_dom;points_ext;id_commune\n")
     b = open("data-test/champutils.txt", "w")
+
+    contracts_file = open("data-test/contracts.csv", "w", encoding="utf-8")
+
     nationalities_countries_dict = load_csv("nationalites_pays")
     nationalities_countries = []
     for nc in nationalities_countries_dict:
@@ -54,6 +57,7 @@ def main():
     # TODO systeme d'année et champutils
     matches = generate_all_calendars(teams_per_championships)
     i = 0
+    j = 0
     while time_manager.get_date() < datetime(2080, 9, 1):
         if time_manager.mercato_time():
             mercato(championships, players_number, teams_per_championships, time_manager.get_date(), contract_manager, teams_per_id, nationalities_countries)
@@ -65,6 +69,8 @@ def main():
             matches = generate_all_calendars(teams_per_championships)
             time_manager.add_day()
         else:
+            j += 1
+            print(j)
             for match in matches[i]:
                 team1 = teams_per_id[match[0]]
                 commune_match = team1.get_commune_id()
@@ -78,7 +84,7 @@ def main():
                 i = 0
     a.close()
     b.close()
-
+    contract_manager.extract_data(contracts_file)
     return  # nb de joueurs par équipe : 22-25 pour EN et ES, 22-36 sinon
 
 
