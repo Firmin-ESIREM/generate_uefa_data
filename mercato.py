@@ -1,6 +1,7 @@
 from random import choice, choices
 from datetime import datetime
 
+
 def mercato(championship_list, players_number: int, teams_per_championship, date: datetime, contract_manager):
     """
     This function simulates a transfer market.
