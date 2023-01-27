@@ -26,7 +26,7 @@ class Team:
             self.players_per_post[player.get_post()].append(player)
 
     def remove_player(self, player: Player):
-        if player not in self.players:
+        if player in self.players:
             self.players.remove(player)
             self.players_per_post[player.get_post()].remove(player)
 

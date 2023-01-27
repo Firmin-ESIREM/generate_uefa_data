@@ -8,6 +8,9 @@
 # CMake
 cmake-build-*/
 
+*.json
+*.txt
+
 data-test
 
 # Mongo Explorer plugin
