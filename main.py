@@ -41,9 +41,11 @@ def main():
     teams_per_championship = dict()
     teams_per_id = dict()
     for team in teams:
+        print("a")
         teams_per_championship[int(team.get_id_club())] = int(team.get_id_championship())
         teams_per_id[int(team.get_id_club())] = team
         generated_players = generate_players(time_manager.date, team, nationalities_countries)
+        print(generated_players)
         team.add_players(generated_players)
         players_number += team.get_amount_players()
 
@@ -51,10 +53,9 @@ def main():
     # TODO systeme d'année et champutils
     matches = generate_all_calendars(teams_per_championships)
     i = 0
-    j = 0
     while time_manager.get_date() < datetime(2080, 9, 1):
         if time_manager.mercato_time():
-            mercato(championships, players_number, teams_per_championships, time_manager.get_date(), contract_manager)
+            mercato(championships, players_number, teams_per_championships, time_manager.get_date(), contract_manager, teams_per_id)
             time_manager.skip_mercato_time()
         elif time_manager.is_season_finished():
             b.write(f"{time_manager.get_date().year} = {str(champ_utils)}\n")
@@ -64,13 +65,11 @@ def main():
             time_manager.add_day()
         else:
             for match in matches[i]:
-                j += 1
-                print(j)
                 team1 = teams_per_id[match[0]]
                 commune_match = team1.get_commune_id()
                 match_object = Match(teams_per_championship[match[0]], time_manager.get_date(), teams_per_id[match[0]], teams_per_id[match[1]], commune_match)
                 match_object.simulate(champ_utils)
-                a.write(f"{match_object} nb :{j}\n")
+                a.write(f"{match_object}\n")
             time_manager.add_day()
             if i != 189:
                 i += 1
