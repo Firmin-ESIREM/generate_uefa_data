@@ -31,11 +31,13 @@ def generate_players(date: datetime, team: Team, countries: list[Country]) -> li
         to_remove = choice(i)
         number_of_players_per_post[to_remove] -= 1
     players: list[Player] = []
-    for post, player in number_of_players_per_post.items():
-        low = date - relativedelta(years=35)
-        up = date - relativedelta(years=17)
-        birth_date = random_date(low, up)
-        nationality = team.championship.country.id_nationality if bool(randint(0, 1)) else choice(countries).id_nationality
-        player_generated = Player(team, nationality, birth_date, post)
-        players.append(player_generated)
+    print(number_of_players_per_post)
+    for post, number_of_players in number_of_players_per_post.items():
+        for _ in range(number_of_players):
+            low = date - relativedelta(years=35)
+            up = date - relativedelta(years=17)
+            birth_date = random_date(low, up)
+            nationality = team.championship.country.id_nationality if bool(randint(0, 1)) else choice(countries).id_nationality
+            player_generated = Player(team, nationality, birth_date, post)
+            players.append(player_generated)
     return players

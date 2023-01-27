@@ -48,4 +48,4 @@ class Player:
         return hash(self.id)
 
     def __str__(self):
-        return self.first_name + ' ' + self.last_name.upper() + ' ' + str(self.birth_date)
+        return self.first_name + ' ' + self.last_name.upper() + ' ' + str(self.birth_date) + ' ' + self.post

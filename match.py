@@ -65,4 +65,4 @@ class Match:
         self.tirs_non_cadres_exterieur = random.randint(2, 30)
 
     def to_csv(self):
-        return f"{self.championship_id};{self.date.year}-{self.date.month}-{self.date.day};{self.domicile};{self.exterieur};{self.score_domicile};{self.score_exterieur};{self.winner};{self.tirs_non_cadres_domicile};{self.tirs_non_cadres_exterieur};{self.tirs_cadres_domicile};{self.tirs_cadres_exterieur};{self.points_domicile};{self.points_exterieur};{self.commune_match}"
+        return f"{self.championship_id};{self.date.year}-{self.date.month}-{self.date.day};{self.domicile.get_id_club()};{self.exterieur.get_id_club()};{self.score_domicile};{self.score_exterieur};{self.winner};{self.tirs_non_cadres_domicile};{self.tirs_non_cadres_exterieur};{self.tirs_cadres_domicile};{self.tirs_cadres_exterieur};{self.points_domicile};{self.points_exterieur};{self.commune_match}"
