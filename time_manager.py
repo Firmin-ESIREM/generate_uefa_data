@@ -21,7 +21,7 @@ class TimeManager:
             return
         current_year = self.date.year
         if self.date.month == 12 or self.date.month == 1:
-            self.date = datetime(current_year+1,  1, 8)
+            self.date = datetime(current_year,  1, 8)
         else:
             self.date = datetime(current_year, 9, 1)
 
@@ -30,6 +30,9 @@ class TimeManager:
 
     def get_date(self):
         return self.date
+
+    def get_date_clean(self):
+        return f"{self.date.year}-{self.date.month}-{self.date.day}"
 
     def __str__(self) -> str:  # French way of displaying date
         return self.date.strftime("%d/%m/%Y")
